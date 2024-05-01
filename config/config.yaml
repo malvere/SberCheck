@@ -1,0 +1,10 @@
+env: "local"
+token_ttl: 1h
+
+database:
+  driver: "postgres"
+  url: "host=localhost dbname=yoba sslmode=disable"
+
+parser:
+  experiments: "./config/experiments.json"
+  cookie-folder: "./containers/"
