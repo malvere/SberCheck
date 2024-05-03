@@ -66,7 +66,6 @@ func parseAll(client *http.Client, cfg *config.ParserConfig, cookiePaths []conta
 
 	wg.Wait()
 	log.Printf("Finished, parsed %d containers", len(cookiePaths))
-	log.Print(cookiePaths)
 
 	t.SetColumnConfigs([]table.ColumnConfig{{Number: 1, AutoMerge: true}})
 	t.SortBy([]table.SortBy{
@@ -114,7 +113,7 @@ func parse(client *http.Client, cfg *config.ParserConfig, cont container, t tabl
 
 			// promo.Description, // Add regular expresions (check utils)
 		})
-		// t.AppendSeparator()
+
 	default:
 		for _, promo := range response.PromoCodes {
 			expirationDate := time.Date(

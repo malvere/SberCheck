@@ -13,7 +13,7 @@ prod:
 	elif [ "$(filter macos,$(MAKECMDGOALS))" != "" ]; then \
 		GOOS=darwin GOARCH=amd64 go build -o $(BUILD_DIR)-darwin-amd64 -v $(CMD_DIR); \
 	elif [ "$(filter linux-386,$(MAKECMDGOALS))" != "" ]; then \
-		GOOS=linux GOARCH=386 go build -o $(BUILD_DIR)-linux-386 -v .$(CMD_DIR); \
+		GOOS=linux GOARCH=386 GOMAXPROCS=1 go build -o $(BUILD_DIR)-linux-386 -v $(CMD_DIR); \
 	else \
 		GOOS=linux GOARCH=amd64 go build -o $(BUILD_DIR)-linux-amd64 -v $(CMD_DIR); \
 	fi

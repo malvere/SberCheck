@@ -3,6 +3,7 @@ bin/
 containers/*
 filename.md
 filename.txt
+store/
 __*
 .env
 vids*
