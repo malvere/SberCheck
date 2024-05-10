@@ -98,7 +98,7 @@ func parse(client *http.Client, cfg *config.ParserConfig, cont container, t tabl
 	}
 	defer resp.Body.Close()
 
-	response := &model.ResponseModel{}
+	response := &model.PromoCodesList{}
 	if err = json.NewDecoder(resp.Body).Decode(&response); err != nil {
 		log.Print("Error decoding JSON:", err)
 		return err

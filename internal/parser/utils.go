@@ -34,7 +34,7 @@ func LoadCookies(cookiePath string) (*Cookie, error) {
 		return nil, err
 	}
 	if err := json.Unmarshal(data, &cookies); err != nil {
-		log.Printf("Error unmarshalling JSON: %v", err)
+		log.Printf("Error unmarshalling .json cookie: %v", err)
 		return nil, err
 	}
 	idx := slices.IndexFunc(cookies, func(c Cookie) bool { return c.Name == "ecom_token" })
@@ -74,7 +74,7 @@ func BuildRequest(cfg *config.ParserConfig, cookiePath string) (*http.Request, e
 	}
 
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Accept-Encoding", "deflate")
+	// req.Header.Set("Accept-Encoding", "deflate")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Cookie", string(cookieString))
 

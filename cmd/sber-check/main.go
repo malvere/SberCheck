@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := sberparser.Start(cfg); err != nil {
+	if err := sberparser.Duplicate(cfg); err != nil {
 		log.Fatal(err)
 	}
 }

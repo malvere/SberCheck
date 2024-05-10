@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type ResponseModel struct {
+type PromoCodesList struct {
 	Success bool `json:"success"`
 	Meta    struct {
 		Time       time.Time `json:"time"`
