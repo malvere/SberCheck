@@ -37,37 +37,7 @@ func Duplicate(cfg *config.Config) error {
 		return err
 	}
 
-	// if err := parseAll(client, &cfg.Parser, cookiePaths); err != nil {
-	// 	log.Fatal("Error launching: ", err)
-	// }
-
-	// cart, err := searchCart(client, &cfg.Parser, cookiePaths[0])
-	// if err != nil {
-	// 	log.Print("Error launching: ", err)
-	// 	return err
-	// }
-	// log.Print(cart.Elements[0].Identification.ID)
-
-	// location, err := getCart(client, &cfg.Parser, cookiePaths[0], cart.Elements[0].Identification.ID)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// profile, err := getProfile(client, &cfg.Parser, cookiePaths[0])
-	// if err != nil {
-	// 	return err
-	// }
-
-	// order, err := createOrder(client, &cfg.Parser, cookiePaths[0], cart.Elements[0].Identification.ID, &profile.Profile)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// log.Print(location.LocationID)
-	// log.Print(profile.Profile)
-	// log.Print(order)
-
-	duplicateALL(client, &cfg.Parser, cookiePaths, "k5123ak2q48hdv")
+	duplicateALL(client, &cfg.Parser, cookiePaths, "promo")
 	return nil
 }
 
@@ -143,8 +113,8 @@ func duplicateALL(client *http.Client, cfg *config.ParserConfig, cookiePaths []c
 		if err != nil {
 			log.Printf("Order Create failed in container %s. Error: %v", cookiePath.name, err)
 		}
-
 		OrderResultSlice[i] = order
+		// OrderResultSlice[i] = order
 	}
 
 	for i, cookie := range cookiePaths {
@@ -159,8 +129,8 @@ func duplicateALL(client *http.Client, cfg *config.ParserConfig, cookiePaths []c
 			log.Printf("Container %s. Status: FAILED", cookiePaths[i].name)
 			log.Printf("Message: %v", order.Message)
 			log.Print("Errors: ")
-			for i, er := range order.Errors {
-				log.Printf("ERROR #%d:::| %s: %s", i, er.Title, er.Detail)
+			for ierr, er := range order.Errors {
+				log.Printf("ERROR #%d:::| %s: %s", ierr, er.Title, er.Detail)
 			}
 
 		}
