@@ -21,15 +21,16 @@ type OrderDiscount struct {
 }
 
 type CustomerProfile struct {
-	NotMe     bool   `json:"notMe"` // false
-	ThirdName string `json:"thirdName"`
-	Comment   string `json:"comment"`
-	FirstName string `json:"firstName"` // Володя
-	LastName  string `json:"lastName"`  // Интеров
-	Email     string `json:"email"`     // TLOTOL.OLTO@MAIL.RU
-	Phone     string `json:"phone"`     // 79013912737
-	PhoneMisc string `json:"phoneMisc"`
-	Restored  bool   `json:"restored"`
+	NotMe        bool   `json:"notMe"` // false
+	ThirdName    string `json:"thirdName"`
+	Comment      string `json:"comment"`
+	FirstName    string `json:"firstName"` // Володя
+	LastName     string `json:"lastName"`  // Интеров
+	Email        string `json:"email"`     // TLOTOL.OLTO@MAIL.RU
+	Phone        string `json:"phone"`     // 79013912737
+	PhoneMisc    string `json:"phoneMisc"`
+	Restored     bool   `json:"restored"`
+	BonusBalance int64  `json:"bonusBalance"`
 }
 
 type OrderCreateResponse struct {

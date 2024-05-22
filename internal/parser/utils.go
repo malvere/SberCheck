@@ -11,8 +11,12 @@ import (
 	"path/filepath"
 	"regexp"
 	"sbercheck/internal/config"
+	"sbercheck/internal/model"
 	"slices"
 	"strings"
+	"time"
+
+	"github.com/jedib0t/go-pretty/v6/table"
 )
 
 type Cookie struct {
@@ -111,4 +115,59 @@ func RegParse() {
 		fmt.Printf("Min Order: %s, Discount: %s\n", minOrder, discount)
 	}
 
+}
+
+func parsePromo(profile *model.GetProfileResponse, response *model.PromoCodesList, cont container, t table.Writer, re *regexp.Regexp) {
+	currentCont := strings.Split(cont.name, ".")[0]
+	switch len(response.PromoCodes) {
+	case 0:
+		t.AppendRow([]interface{}{
+			currentCont,
+			"-", "-", "-", "-", "-", "-", "-",
+		})
+
+	default:
+		for _, promo := range response.PromoCodes {
+			expirationDate := time.Date(
+				promo.ExpireAt.Year,
+				time.Month(promo.ExpireAt.Month),
+				promo.ExpireAt.Day,
+				promo.ExpireAt.Hours,
+				promo.ExpireAt.Minutes,
+				promo.ExpireAt.Seconds,
+				promo.ExpireAt.Nanos,
+				time.UTC,
+			)
+			// strings.HasPrefix(promo.Key, "fr")
+			matches := re.FindAllStringSubmatch(promo.Description, -1)
+			switch len(matches) {
+			case 0, 1:
+				if strings.HasPrefix(promo.Key, "fr") {
+					promo.Key = "REF: " + promo.Key
+				}
+				t.AppendRow([]interface{}{
+					currentCont,
+					profile.Profile.BonusBalance,
+					promo.Key,
+					promo.Amount,
+					expirationDate.Format("02-01-2006 15:04"),
+					promo.Amount,
+					promo.MinOrderPrice,
+				})
+			default:
+				for _, match := range matches {
+					t.AppendRow([]interface{}{
+						currentCont,
+						profile.Profile.BonusBalance, // Bonuses
+						promo.Key,
+						promo.Amount,
+						expirationDate.Format("02-01-2006 15:04"),
+						match[1],
+						match[2],
+					})
+				}
+			}
+		}
+		t.AppendSeparator()
+	}
 }
